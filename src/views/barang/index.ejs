@@ -1,0 +1,48 @@
+<div class="content-page">
+    <div class="content">
+        <h1>Barang</h1>
+        <a href="/barangs/create" class="btn btn-primary">Tambah Barang</a>
+        <div class="flash-messages">
+            <% messages.forEach(message => { %>
+            <div class="flash-message">
+                <%= message %>
+            </div>
+            <% }); %>
+        </div>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Photo</th>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Harga Jual</th>
+                    <th>Deskripsi</th>
+                    <th>Kategori</th>
+                    <th>Supplier</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% barangs.forEach((barang, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><img src="<%= barang.photo %>" alt="photo-barang"></td>
+                        <td><%= barang.name %></td>
+                        <td><%= barang.harga %></td>
+                        <td><%= barang.stock %></td>
+                        <td><%= barang.sale_price %></td>
+                        <td><%= barang.deskripsi %></td>
+                        <td><%= barang.Kategori.name %></td>
+                        <td><%= barang.Supplier.name %></td>
+                        <td>
+                            <a href="/barangs/<%= barang.id %>/edit" class="btn btn-primary">Ubah</a>
+                            <a href="/barangs/<%= barang.id %>/destroy" class="btn btn-danger">Hapus</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

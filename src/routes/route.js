@@ -14,6 +14,8 @@ module.exports = (app, router) => {
     require('./web/supplier')(app, router)
     require('./web/gudang')(app, router)
     require('./web/pengawas')(app, router)
+    require('./web/kategori')(app, router)
+    require('./web/barang')(app, router)
 
     app.use('/', router)
 }

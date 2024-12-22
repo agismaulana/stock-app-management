@@ -1,0 +1,42 @@
+
+<div class="container">
+    <div class="content">
+        <form action="/barangs/<%= barang.id %>/update" method="post">
+            <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="<%= barang.name %>">
+            </div>
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea name="deskripsi" id="deskripsi"><%= barang.deskripsi %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="harga">Harga</label>
+                <input type="number" class="form-control" id="harga" name="harga" placeholder="Enter price" value="<%= barang.harga %>">
+            </div>
+            <div class="form-group">
+                <label for="sale_price">Harga Jual</label>
+                <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Enter price" value="<%= barang.sale_price %>">
+            </div>
+            <div class="form-group">
+                <label for="kategoriId">Kategori</label>
+                <select name="kategoriId" id="kategoriId" class="form-control">
+                    <option value="">-- Pilih Kategori --</option>
+                    <% kategories.forEach(({id, name}) => { %>
+                        <option value="<%= id %>" <%= id == barang.kategoriId ? 'selected' : '' %> ><%= name %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supplierId">Supplier</label>
+                <select name="supplierId" id="supplierId" class="form-control">
+                    <option value="">-- Pilih Supplier --</option>
+                    <% suppliers.forEach(({id, name}) => { %>
+                        <option value="<%= id %>" <%= id == barang.supplierId ? 'selected' : '' %> ><%= name %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
