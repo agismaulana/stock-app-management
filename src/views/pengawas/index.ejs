@@ -1,0 +1,42 @@
+<div class="content-page">
+    <div>
+        <h1>List Pengawas</h1>
+        <a href="/pengawas/create">Tambah Pengawas</a>
+
+        <% if (messages.length > 0) { %>
+            <div class="flash-messages">
+                <% messages.forEach(message => { %>
+                <div class="flash-message">
+                    <%= message %>
+                </div>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Telepon</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pengawas.forEach((pengawas, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= pengawas.name %></td>
+                    <td><%= pengawas.telepon %></td>
+                    <td><%= pengawas.alamat %></td>
+                    <td>
+                        <a href="/pengawas/<%= pengawas.id %>/edit">Edit</a>
+                        <a href="/pengawas/<%= pengawas.id %>/destroy">Delete</a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

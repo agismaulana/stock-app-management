@@ -1,0 +1,21 @@
+<div class="content-page">
+    <div class="content">
+        <form action="/gudangs/<%= gudang.id %>/update" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" value="<%= gudang.name %>">
+            </div>
+            <div class="form-group">
+                <label for="telepon">Telepon</label>
+                <input type="text" name="telepon" id="telepon" class="form-control" value="<%= gudang.telepon %>">
+            </div>
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <textarea name="alamat" id="alamat"><%= gudang.alamat %></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+
+<div class="content-page">
+    <h1>List User</h1>
+    <a href="/users/create">Tambah User</a>
+
+    <% if (messages.length > 0) { %>
+        <div class="flash-messages">
+            <% messages.forEach(message => { %>
+            <div class="flash-message">
+                <%= message %>
+            </div>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach((user, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= user.username %></td>
+                <td><%= user.email %></td>
+                <td><%= user.role.name %></td>
+                <td>
+                    <a href="/users/<%= user.id %>/edit/" class="btn btn-info">Edit</a>
+                    <a href="/users/<%= user.id %>/destroy/" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

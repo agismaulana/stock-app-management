@@ -1,0 +1,134 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Role {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    User User[]
+}
+
+model User {
+    id          Int    @id @default(autoincrement())
+    username    String @unique
+    email       String @unique
+    password    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    role        Role  @relation(fields: [roleId], references: [id])
+    roleId      Int
+
+    Pengawas Pengawas?
+
+    Supplier Supplier?
+}
+
+model Kategori {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    Barang Barang[]
+}
+
+model Barang {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    stock       Decimal
+    harga       Decimal
+    deskripsi   String
+    photo       String
+    sale_price  Decimal
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    Supplier Supplier? @relation(fields: [supplierId], references: [id])
+    supplierId Int?
+
+    BarangGudang BarangGudang[]
+
+    TransaksiDetail TransaksiDetail[]
+
+    Kategori Kategori @relation(fields: [kategoriId], references: [id])
+    kategoriId Int
+}
+
+model Gudang {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    alamat      String
+    telepon     String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    BarangGudang BarangGudang[]
+}
+
+model BarangGudang {
+    id          Int    @id @default(autoincrement())
+    barang      Barang @relation(fields: [barangId], references: [id])
+    barangId    Int
+    gudang      Gudang @relation(fields: [gudangId], references: [id])
+    gudangId    Int
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Supplier {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    alamat      String
+    telepon     String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    User User @relation(fields: [userId], references: [id])
+    userId Int @unique
+    
+    Transaksi Transaksi[]
+
+    Barang Barang[]
+}
+
+model Transaksi {
+    id          Int    @id @default(autoincrement())
+    total       Decimal
+    tanggal     DateTime
+    supplier    Supplier @relation(fields: [supplierId], references: [id])
+    supplierId  Int
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    TransaksiDetail TransaksiDetail[]
+}
+
+model TransaksiDetail {
+    id          Int    @id @default(autoincrement())
+    transaksi   Transaksi @relation(fields: [transaksiId], references: [id])
+    transaksiId Int
+    barang      Barang @relation(fields: [barangId], references: [id])
+    barangId    Int
+    jumlah      Decimal
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Pengawas {
+    id          Int    @id @default(autoincrement())
+    name        String @unique
+    alamat      String
+    telepon     String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    user        User @relation(fields: [userId], references: [id])
+    userId      Int @unique
+}

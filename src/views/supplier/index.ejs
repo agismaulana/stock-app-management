@@ -1,0 +1,41 @@
+
+<div class="content-page">
+    <h1>List Supplier</h1>
+    <a href="/suppliers/create">Tambah Supplier</a>
+
+    <% if (messages.length > 0) { %>
+        <div class="flash-messages">
+            <% messages.forEach(message => { %>
+            <div class="flash-message">
+                <%= message %>
+            </div>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Telepon</th>
+                <th>Alamat</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% suppliers.forEach((supplier, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= supplier.name %></td>
+                <td><%= supplier.telepon %></td>
+                <td><%= supplier.alamat %></td>
+                <td>
+                    <a href="/suppliers/<%= supplier.id %>/edit">Edit</a>
+                    <a href="/suppliers/<%= supplier.id %>/destroy">Hapus</a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

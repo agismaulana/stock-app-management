@@ -1,0 +1,13 @@
+<div class="form-user">
+    <form action="/users/store" method="post">
+        <input type="text" name="username" placeholder="Username">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <select name="roleId" id="roleId">
+        <% roles.forEach(role => { %>
+            <option value="<%= role.id %>"><%= role.name %></option>
+        <% }); %>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</div>

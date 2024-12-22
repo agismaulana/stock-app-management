@@ -1,0 +1,42 @@
+<div class="content-page">
+    <div class="content">
+        <h1>List Gudang</h1>
+        <a href="/gudangs/create">Tambah Gudang</a>
+
+        <% if (messages.length > 0) { %>
+            <div class="flash-messages">
+                <% messages.forEach(message => { %>
+                <div class="flash-message">
+                    <%= message %>
+                </div>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Telepon</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% gudangs.forEach((gudang, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= gudang.name %></td>
+                    <td><%= gudang.telepon %></td>
+                    <td><%= gudang.alamat %></td>
+                    <td>
+                        <a href="/gudangs/<%= gudang.id %>/edit">Edit</a>
+                        <a href="/gudangs/<%= gudang.id %>/destroy">Hapus</a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="form-user">
+    <form action="/users/<%= user.id %>/update" method="post">
+        <input type="text" name="username" placeholder="Username" value="<%= user.username %>">
+        <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
+        <input type="password" name="password" placeholder="Password">
+        <select name="roleId" id="roleId">
+        <% roles.forEach(role => { %>
+            <option value="<%= role.id %>" <%= role.id == user.roleId ? 'selected' : '' %>><%= role.name %></option>
+        <% }); %>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</div>
