@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <%- include('./head-css.ejs') %>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/jquery.js"></script>
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid"><%- include(page) %></div>
+      </div>
+    </div>
+  </body>
+</html>

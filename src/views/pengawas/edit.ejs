@@ -1,5 +1,17 @@
-<div class="content-page">
-    <div class="content">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/pengawas">Pengawas</a></li>
+      <li class="breadcrumb-item"><a href="/pengawas">Data Tables</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Pengawas</li>
+    </ol>
+  </nav>
+
+  
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Edit Pengawas</h6>
+    </div>
+    <div class="card-body">
         <form action="/pengawas/<%= pengawas.id %>/update" method="POST">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -11,11 +23,11 @@
             </div>
             <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <textarea name="alamat" id="alamat"><%= gudang.alamat %></textarea>
+                <textarea name="alamat" id="alamat" class="form-control"><%= gudang.alamat %></textarea>
             </div>
             <div class="form-group">
                 <label for="user_id">User</label>
-                <select name="userId" id="userIdd">
+                <select name="userId" id="userIdd" class="form-control">
                     <% users.forEach(user => { %>
                         <option value="<%= user.id %>" <%= user.id == supplier.user_id ? 'selected' : '' %>><%= user.username %></option>
                     <% }); %>

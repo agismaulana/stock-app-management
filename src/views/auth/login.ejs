@@ -1,28 +1,39 @@
-
-
-<div class="form-login">
-
-    <h1>Login</h1>
-
-    <% if (messages.length > 0) { %>
-        <div class="flash-messages">
-            <% messages.forEach(message => { %>
-            <div class="flash-message">
-                <%= message %>
+<body class="bg-gradient-primary">
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <!-- Outer Row -->
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <div class="card o-hidden border-0 shadow-lg">
+        <div class="card-body p-0">
+          <div class="p-5">
+            <!-- Flash Message -->
+            <% if (messages && messages.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+              <% messages.forEach(message => { %>
+              <div><%= message %></div>
+              <% }); %>
             </div>
-            <% }); %>
-        </div>
-    <% } %>
+            <% } %>
 
-    <form action="/login" method="POST">
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+            </div>
+            <form class="user" action="/login" method="POST">
+              <div class="form-group">
+                <input type="email" class="form-control form-control-user" id="exampleInputEmail" name="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." required />
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" placeholder="Password" required />
+              </div>
+              <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+              <hr />
+            </form>
+            <hr />
+            <div class="text-center">
+              <a class="small" href="register.html">Create an Account!</a>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+      </div>
+    </div>
+  </div>
+</body>

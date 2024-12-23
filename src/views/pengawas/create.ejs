@@ -1,29 +1,40 @@
-<div class="content-page">
-    <div class="content">
-        <form action="/pengawas/store" method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="telepon">Telepon</label>
-                <input type="text" name="telepon" id="telepon" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="alamat">Alamat</label>
-                <textarea name="alamat" id="alamat"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="user_id">User</label>
-                <select name="userId" id="userIdd">
-                    <% users.forEach(user => { %>
-                        <option value="<%= user.id %>"><%= user.username %></option>
-                    <% }); %>
-                </select>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-        </form>
-    </div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/pengawas">Pengawas</a></li>
+    <li class="breadcrumb-item"><a href="/pengawas">Data Tables</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Tambah Pengawas</li>
+  </ol>
+</nav>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Tambah Pengawas</h6>
+  </div>
+  <div class="card-body">
+    <form action="/pengawas/store" method="POST">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Masukan Nama" />
+      </div>
+      <div class="form-group">
+        <label for="telepon">Telepon</label>
+        <input type="text" name="telepon" id="telepon" class="form-control" placeholder="Masukan Nomor Telepon" />
+      </div>
+      <div class="form-group">
+        <label for="alamat">Alamat</label>
+        <textarea class="form-control" rows="3" name="alamat" id="alamat" placeholder="Masukan Alamat"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="user_id">User</label>
+        <select name="userId" id="userIdd" class="form-control">
+          <% users.forEach(user => { %>
+          <option value="<%= user.id %>"><%= user.username %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </div>
 </div>

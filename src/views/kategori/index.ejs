@@ -1,41 +1,48 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/kategories">Kategori</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
+  </ol>
+</nav>
 
-<div class="content-page">
-    <div class="content">
-        <h1>Kategori</h1>
+<!-- Flash Message -->
+<div class="my-2">
+  <% if (messages && messages.length > 0) { %>
+  <div class="alert alert-success" role="alert">
+    <% messages.forEach(message => { %>
+    <div><%= message %></div>
+    <% }); %>
+  </div>
+  <% } %>
+</div>
 
-        <a href="/kategories/create" class="btn btn-primary">Tambah Kategori</a>
-
-        <% if (messages.length > 0) { %>
-            <div class="flash-messages">
-                <% messages.forEach(message => { %>
-                <div class="flash-message">
-                    <%= message %>
-                </div>
-                <% }); %>
-            </div>
-        <% } %>
-
-
-        <table border="1" cellpadding="5">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% kategories.forEach((kategori, index) => { %>
-                    <tr>
-                        <td><%= index + 1 %></td>
-                        <td><%= kategori.name %></td>
-                        <td>
-                            <a href="/kategories/<%= kategori.id %>/edit" class="btn btn-warning">Edit</a>
-                            <a href="/kategories/<%= kategori.id %>/destroy" class="btn btn-danger">Hapus</a>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <a href="/kategories/create" class="btn btn-primary">Tambah Kategori</a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% kategories.forEach((kategori, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= kategori.name %></td>
+            <td>
+              <a href="/kategories/<%= kategori.id %>/edit" class="btn btn-sm btn-info">Edit</a>
+              <a href="/kategories/<%= kategori.id %>/destroy" class="btn btn-sm btn-danger">Hapus</a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

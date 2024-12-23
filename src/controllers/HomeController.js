@@ -1,15 +1,14 @@
-
 const dashboard = (req, res) => {
-    if (!req.session.user) {
-        return res.redirect('/login-form')
-    }
+  if (!req.session.user) {
+    return res.redirect('/login-form');
+  }
 
-    return res.render('layouts/template', {
-        title: 'Dashboard',
-        page: '../index'
-    })
-}
+  return res.render('layouts/template', {
+    title: 'Dashboard',
+    page: '../index',
+  });
+};
 
 module.exports = {
-    dashboard
-}
+  dashboard,
+};

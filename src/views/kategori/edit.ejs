@@ -1,10 +1,21 @@
-<div class="content-page">
-    <div class="content">
-        <h1>Ubah Kategori</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/kategories">Kategori</a></li>
+    <li class="breadcrumb-item"><a href="/kategories">Data Tables</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Kategori</li>
+  </ol>
+</nav>
 
-        <form action="/kategories/<%= kategori.id %>/update" method="post">
-            <input type="text" name="name" placeholder="Nama Kategori" value="<%= kategori.name %>">
-            <button type="submit">Simpan</button>
-        </form>
-    </div>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Edit Kategori</h6>
+  </div>
+  <div class="card-body">
+    <form action="/kategories/<%= kategori.id %>/update" method="post">
+      <div class="form-group">
+        <input type="text" name="name" class="form-control" placeholder="Nama Kategori" value="<%= kategori.name %>" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+    </form>
+  </div>
 </div>

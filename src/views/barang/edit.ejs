@@ -1,42 +1,96 @@
-
-<div class="container">
-    <div class="content">
-        <form action="/barangs/<%= barang.id %>/update" method="post">
-            <div class="form-group">
-                <label for="name">Nama</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="<%= barang.name %>">
-            </div>
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-                <textarea name="deskripsi" id="deskripsi"><%= barang.deskripsi %></textarea>
-            </div>
-            <div class="form-group">
-                <label for="harga">Harga</label>
-                <input type="number" class="form-control" id="harga" name="harga" placeholder="Enter price" value="<%= barang.harga %>">
-            </div>
-            <div class="form-group">
-                <label for="sale_price">Harga Jual</label>
-                <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Enter price" value="<%= barang.sale_price %>">
-            </div>
-            <div class="form-group">
-                <label for="kategoriId">Kategori</label>
-                <select name="kategoriId" id="kategoriId" class="form-control">
-                    <option value="">-- Pilih Kategori --</option>
-                    <% kategories.forEach(({id, name}) => { %>
-                        <option value="<%= id %>" <%= id == barang.kategoriId ? 'selected' : '' %> ><%= name %></option>
-                    <% }); %>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="supplierId">Supplier</label>
-                <select name="supplierId" id="supplierId" class="form-control">
-                    <option value="">-- Pilih Supplier --</option>
-                    <% suppliers.forEach(({id, name}) => { %>
-                        <option value="<%= id %>" <%= id == barang.supplierId ? 'selected' : '' %> ><%= name %></option>
-                    <% }); %>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/barangs">Barang</a></li>
+      <li class="breadcrumb-item"><a href="/barangs">Data Tables</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Barang</li>
+    </ol>
+  </nav>
+  
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Edit Barang</h6>
     </div>
-</div>
+    <div class="card-body">
+      <form action="/barangs/<%= barang.id %>/update" method="post">
+        <div class="form-group">
+          <label for="name">Nama Barang</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name" 
+            name="name" 
+            placeholder="Masukkan nama barang" 
+            value="<%= barang.name %>" 
+            required 
+          />
+        </div>
+        <div class="form-group">
+          <label for="deskripsi">Deskripsi</label>
+          <textarea 
+            class="form-control" 
+            id="deskripsi" 
+            name="deskripsi" 
+            rows="3" 
+            placeholder="Masukkan deskripsi barang" 
+            required
+          ><%= barang.deskripsi %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="harga">Harga</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="harga" 
+            name="harga" 
+            placeholder="Masukkan harga barang" 
+            value="<%= barang.harga %>" 
+            required 
+          />
+        </div>
+        <div class="form-group">
+          <label for="sale_price">Harga Jual</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="sale_price" 
+            name="sale_price" 
+            placeholder="Masukkan harga jual barang" 
+            value="<%= barang.sale_price %>" 
+            required 
+          />
+        </div>
+        <div class="form-group">
+          <label for="kategoriId">Kategori</label>
+          <select 
+            name="kategoriId" 
+            id="kategoriId" 
+            class="form-control" 
+            required
+          >
+            <option value="">-- Pilih Kategori --</option>
+            <% kategories.forEach(({ id, name }) => { %>
+            <option value="<%= id %>" <%= id == barang.kategoriId ? 'selected' : '' %>><%= name %></option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="supplierId">Supplier</label>
+          <select 
+            name="supplierId" 
+            id="supplierId" 
+            class="form-control" 
+            required
+          >
+            <option value="">-- Pilih Supplier --</option>
+            <% suppliers.forEach(({ id, name }) => { %>
+            <option value="<%= id %>" <%= id == barang.supplierId ? 'selected' : '' %>><%= name %></option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

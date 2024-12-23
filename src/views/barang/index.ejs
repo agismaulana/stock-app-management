@@ -1,48 +1,62 @@
-<div class="content-page">
-    <div class="content">
-        <h1>Barang</h1>
-        <a href="/barangs/create" class="btn btn-primary">Tambah Barang</a>
-        <div class="flash-messages">
-            <% messages.forEach(message => { %>
-            <div class="flash-message">
-                <%= message %>
-            </div>
-            <% }); %>
-        </div>
-        <table border="1" cellpadding="5">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Photo</th>
-                    <th>Nama</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                    <th>Harga Jual</th>
-                    <th>Deskripsi</th>
-                    <th>Kategori</th>
-                    <th>Supplier</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% barangs.forEach((barang, index) => { %>
-                    <tr>
-                        <td><%= index + 1 %></td>
-                        <td><img src="<%= barang.photo %>" alt="photo-barang"></td>
-                        <td><%= barang.name %></td>
-                        <td><%= barang.harga %></td>
-                        <td><%= barang.stock %></td>
-                        <td><%= barang.sale_price %></td>
-                        <td><%= barang.deskripsi %></td>
-                        <td><%= barang.Kategori.name %></td>
-                        <td><%= barang.Supplier.name %></td>
-                        <td>
-                            <a href="/barangs/<%= barang.id %>/edit" class="btn btn-primary">Ubah</a>
-                            <a href="/barangs/<%= barang.id %>/destroy" class="btn btn-danger">Hapus</a>
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/barangs">Barang</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
+  </ol>
+</nav>
+
+<!-- Flash Message -->
+<div class="my-2">
+  <% if (messages && messages.length > 0) { %>
+  <div class="alert alert-success" role="alert">
+    <% messages.forEach(message => { %>
+    <div><%= message %></div>
+    <% }); %>
+  </div>
+  <% } %>
+</div>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <a href="/barangs/create" class="btn btn-primary">Tambah Barang</a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Photo</th>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Harga Jual</th>
+            <th>Deskripsi</th>
+            <th>Kategori</th>
+            <th>Supplier</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% barangs.forEach((barang, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><img src="<%= barang.photo %>" alt="photo-barang" /></td>
+            <td><%= barang.name %></td>
+            <td><%= barang.harga %></td>
+            <td><%= barang.stock %></td>
+            <td><%= barang.sale_price %></td>
+            <td><%= barang.deskripsi %></td>
+            <td><%= barang.Kategori.name %></td>
+            <td><%= barang.Supplier.name %></td>
+            <td>
+              <a href="/barangs/<%= barang.id %>/edit" class="btn btn-sm btn-info">Ubah</a>
+              <a href="/barangs/<%= barang.id %>/destroy" class="btn btn-sm btn-danger">Hapus</a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

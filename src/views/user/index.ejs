@@ -1,41 +1,52 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/users">Users</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
+  </ol>
+</nav>
 
-<div class="content-page">
-    <h1>List User</h1>
-    <a href="/users/create">Tambah User</a>
+<!-- Flash Message -->
+<div class="my-2">
+  <% if (messages && messages.length > 0) { %>
+  <div class="alert alert-success" role="alert">
+    <% messages.forEach(message => { %>
+    <div><%= message %></div>
+    <% }); %>
+  </div>
+  <% } %>
+</div>
 
-    <% if (messages.length > 0) { %>
-        <div class="flash-messages">
-            <% messages.forEach(message => { %>
-            <div class="flash-message">
-                <%= message %>
-            </div>
-            <% }); %>
-        </div>
-    <% } %>
-
-    <table>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <a href="/users/create" class="btn btn-primary">Tambah User</a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
-            <tr>
-                <th>No</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Aksi</th>
-            </tr>
+          <tr>
+            <th>No</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Aksi</th>
+          </tr>
         </thead>
         <tbody>
-            <% users.forEach((user, index) => { %>
-            <tr>
-                <td><%= index + 1 %></td>
-                <td><%= user.username %></td>
-                <td><%= user.email %></td>
-                <td><%= user.role.name %></td>
-                <td>
-                    <a href="/users/<%= user.id %>/edit/" class="btn btn-info">Edit</a>
-                    <a href="/users/<%= user.id %>/destroy/" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-            <% }); %>
+          <% users.forEach((user, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role.name %></td>
+            <td>
+              <a href="/users/<%= user.id %>/edit/" class="btn btn-sm btn-info">Edit</a>
+              <a href="/users/<%= user.id %>/destroy/" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+          <% }); %>
         </tbody>
-    </table>
+      </table>
+    </div>
+  </div>
 </div>
