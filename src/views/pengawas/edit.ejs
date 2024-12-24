@@ -15,21 +15,21 @@
         <form action="/pengawas/<%= pengawas.id %>/update" method="POST">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control" value="<%= gudang.name %>">
+                <input type="text" name="name" id="name" class="form-control" value="<%= pengawas.name %>">
             </div>
             <div class="form-group">
                 <label for="telepon">Telepon</label>
-                <input type="text" name="telepon" id="telepon" class="form-control" value="<%= gudang.telepon %>">
+                <input type="text" name="telepon" id="telepon" class="form-control" value="<%= pengawas.telepon %>">
             </div>
             <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <textarea name="alamat" id="alamat" class="form-control"><%= gudang.alamat %></textarea>
+                <textarea name="alamat" id="alamat" class="form-control"><%= pengawas.alamat %></textarea>
             </div>
             <div class="form-group">
                 <label for="user_id">User</label>
                 <select name="userId" id="userIdd" class="form-control">
                     <% users.forEach(user => { %>
-                        <option value="<%= user.id %>" <%= user.id == supplier.user_id ? 'selected' : '' %>><%= user.username %></option>
+                        <option value="<%= user.id %>" <%= user.id == pengawas.user_id ? 'selected' : '' %>><%= user.username %></option>
                     <% }); %>
                 </select>
             </div>

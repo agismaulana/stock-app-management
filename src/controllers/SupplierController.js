@@ -47,19 +47,28 @@ const store = async (req, res) => {
 }
 
 const edit = async (req, res) => {
+    const users = await prisma.user.findMany({
+        where: {
+            role: {
+                name: 'Supplier'
+            }
+        }
+    })
+
     const supplier = await prisma.supplier.findUnique({
         where: {
             id: parseInt(req.params.id)
         },
         include: {
-            user: true
+            User: true
         }
     })
 
     return res.render('layouts/template', {
         title: 'Supplier',
         page: '../supplier/edit',
-        supplier
+        supplier,
+        users
     })
 }
 

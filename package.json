@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
@@ -31,9 +31,11 @@
     "express-session": "^1.18.1",
     "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "prisma": "^6.1.0"
   }
 }

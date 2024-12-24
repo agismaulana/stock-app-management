@@ -1,0 +1,234 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/transaksi">Transaksi</a></li>
+        <li class="breadcrumb-item"><a href="/transaksi">Data Tables</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Transaksi</li>
+    </ol>
+</nav>
+  
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Edit Transaksi</h6>
+    </div>
+    <div class="card-body">
+    <form action="/transaksi/<%= transaksi.id %>/update" method="post">
+        <div class="form-group">
+            <label for="gudangId">Gudang</label>
+            <select name="gudangId" id="gudangId" class="custom-select">
+                <option value="">-- Pilih Gudang --</option>
+                <% gudangs.forEach(({ id, name }) => { %>
+                <option value="<%= id %>" <%= transaksi.gudangId == id ? 'selected' : '' %>><%= name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="pengawasId">Pengawas</label>
+            <select name="pengawasId" id="pengawasId" class="custom-select">
+                <option value="">-- Pilih Pengawas --</option>
+                <% pengawas.forEach(({ id, name }) => { %>
+                <option value="<%= id %>" <%= transaksi.pengawasId == id ? 'selected' : '' %> ><%= name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tanggal">Tanggal</label>
+            <input type="date" name="tanggal" value="<%= new Date(transaksi.tanggal).toISOString().split('T')[0] %>" id="tanggal" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="typeTransaksi">Type Transaksi</label>
+            <select name="typeTransaksi" id="typeTransaksi" class="custom-select">
+                <option value="">-- Pilih Type Transaksi --</option>
+                <option value="Masuk" <%= transaksi.typeTransaksi == 'Masuk' ? 'selected' : '' %>>Masuk</option>
+                <option value="Keluar" <%= transaksi.typeTransaksi == 'Keluar' ? 'selected' : '' %>>Keluar</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="status">status</label>
+            <select name="status" id="status" class="custom-select">
+                <option value="">-- Pilih Status --</option>
+                <option value="Lunas" <%= transaksi.status == 'Lunas' ? 'selected' : '' %>>Gagal</option>
+                <option value="Belum Lunas" <%= transaksi.status == 'Belum Lunas' ? 'selected' : '' %>>Selesai</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan" rows="3" placeholder="Masukkan keterangan transaksi" required><%= transaksi.keterangan %></textarea>
+        </div>
+
+        <h4 class="mt-4">Daftar Barang</h4>
+        <button type="button" class="btn btn-primary mb-2" id="tambahBarang">Tambah Barang</button>
+        <table class="table table-bordered" id="tableBarang">
+            <thead>
+            <tr>
+                <th colspan="2">Barang</th>
+                <th colspan="2">Kalkulasi</th>
+                <th>Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% transaksi.TransaksiDetail.forEach(({ id, barangId, jumlah, harga }) => { %>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="name">Nama Barang</label>
+                                <select name="barang[0][id]" id="barangId" class="custom-select">
+                                    <option value="">-- Pilih Barang --</option>
+                                    <% barangs.forEach(({ id, name }) => { %>
+                                        <option value="<%= id %>" <%= barangId == id ? 'selected' : '' %>><%= name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="harga">Harga</label>
+                                <input type="number" name="barang[0][harga]" id="harga" class="form-control" value="<%= harga %>" readonly/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" name="barang[0][jumlah]" id="jumlah" class="form-control" value="<%= jumlah %>" min="0" required />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="total">Total</label>
+                                <input type="number" name="barang[0][total]" id="total" class="form-control" value="<%= jumlah * harga %>" readonly/>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-center">
+                        Total
+                    </td>
+                    <td>
+                        <input type="number" name="totalBarang" id="totalBarang" class="form-control" value="<%= transaksi.total %>" readonly/>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+        </div>
+    </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".btn-danger", function () {
+            $(this).closest("tr").remove();
+
+            //set total barang
+            calculateTotal()
+        });
+
+        $(document).on("change", "#barangId", function () {
+            const barangId = $(this).val();
+            let barangs = `<%- JSON.stringify(barangs) -%>`;
+            barangs = JSON.parse(barangs);
+            const barang = barangs.find(({ id }) => id == barangId);
+
+            if (!barang) {
+                $(this).closest("tr").find("#harga").val("0");
+                $(this).closest("tr").find("#total").val("0");
+                return;
+            }
+
+            const total = barang.harga * $(this).closest("tr").find("#jumlah").val();
+
+            $(this).closest("tr").find("#harga").val(barang.harga);
+            $(this).closest("tr").find("#total").val(total);
+
+            //set total barang
+            calculateTotal()
+        });
+
+        $(document).on("change", "#jumlah", function () {
+            const harga = $(this).closest("tr").find("#harga").val();
+            const total = harga * $(this).val();
+            $(this).closest("tr").find("#total").val(total);
+            
+            //set total barang
+            calculateTotal()
+        });
+
+        $(document).on("keyup", "#jumlah", function () {
+            const harga = $(this).closest("tr").find("#harga").val();
+            const total = harga * $(this).val();
+            $(this).closest("tr").find("#total").val(total);
+
+            //set total barang
+            calculateTotal()
+        });
+
+        $("#tambahBarang").on("click", function () {
+            addRow();
+        });
+    });
+
+    const addRow = () => {
+        const indexTable = $("#tableBarang tbody tr").length;
+        const row = `
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="name">Nama Barang</label>
+                        <select name="barang[${indexTable}][id]" id="barangId" class="custom-select">
+                            <option value="">-- Pilih Barang --</option>
+                            <% barangs.forEach(({ id, name }) => { %>
+                                <option value="<%= id %>"><%= name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="harga">Harga</label>
+                        <input type="number" name="barang[${indexTable}][harga]" id="harga" class="form-control" value="0" readonly/>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah</label>
+                        <input type="number" name="barang[${indexTable}][jumlah]" id="jumlah" class="form-control" value="0" min="0" required />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="total">Total</label>
+                        <input type="number" name="barang[${indexTable}][total]" id="total" class="form-control" value="0" readonly/>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+
+        $("#tableBarang tbody").append(row);
+    };
+
+    const calculateTotal = () => {
+        let total = 0;
+        $("#tableBarang tbody tr").each(function () {
+            total += parseInt($(this).find("#total").val());
+        });
+        $("#totalBarang").val(total);
+    };
+</script>
+  

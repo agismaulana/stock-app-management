@@ -43,11 +43,11 @@ model Kategori {
 model Barang {
     id          Int    @id @default(autoincrement())
     name        String @unique
-    stock       Decimal
-    harga       Decimal
+    stock       Decimal @db.Decimal(4, 0)
+    harga       Decimal @db.Decimal(10, 2)
     deskripsi   String
     photo       String
-    sale_price  Decimal
+    sale_price  Decimal @db.Decimal(10, 2)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 
@@ -60,6 +60,8 @@ model Barang {
 
     Kategori Kategori @relation(fields: [kategoriId], references: [id])
     kategoriId Int
+
+    MutasiStok MutasiStok[]
 }
 
 model Gudang {
@@ -71,6 +73,10 @@ model Gudang {
     updatedAt   DateTime @updatedAt
 
     BarangGudang BarangGudang[]
+
+    Transaksi Transaksi[]
+
+    MutasiStok MutasiStok[]
 }
 
 model BarangGudang {
@@ -79,6 +85,7 @@ model BarangGudang {
     barangId    Int
     gudang      Gudang @relation(fields: [gudangId], references: [id])
     gudangId    Int
+    jumlah      Decimal @db.Decimal(4, 0)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 }
@@ -93,18 +100,21 @@ model Supplier {
 
     User User @relation(fields: [userId], references: [id])
     userId Int @unique
-    
-    Transaksi Transaksi[]
 
     Barang Barang[]
 }
 
 model Transaksi {
     id          Int    @id @default(autoincrement())
-    total       Decimal
+    total       Decimal @db.Decimal(10, 2)
     tanggal     DateTime
-    supplier    Supplier @relation(fields: [supplierId], references: [id])
-    supplierId  Int
+    gudang      Gudang @relation(fields: [gudangId], references: [id])
+    gudangId    Int
+    pengawas    Pengawas @relation(fields: [pengawasId], references: [id])
+    pengawasId  Int
+    status      String
+    keterangan  String
+    typeTransaksi String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 
@@ -112,12 +122,13 @@ model Transaksi {
 }
 
 model TransaksiDetail {
-    id          Int    @id @default(autoincrement())
+    uuid        String @unique
     transaksi   Transaksi @relation(fields: [transaksiId], references: [id])
     transaksiId Int
     barang      Barang @relation(fields: [barangId], references: [id])
     barangId    Int
-    jumlah      Decimal
+    jumlah      Decimal @db.Decimal(4, 0)
+    harga       Decimal @db.Decimal(10, 2)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 }
@@ -131,4 +142,21 @@ model Pengawas {
     updatedAt   DateTime @updatedAt
     user        User @relation(fields: [userId], references: [id])
     userId      Int @unique
+
+    Transaksi Transaksi[]
+}
+
+model MutasiStok {
+    id          Int    @id @default(autoincrement())
+    barang      Barang @relation(fields: [barangId], references: [id])
+    barangId    Int
+    gudang      Gudang @relation(fields: [gudangId], references: [id])
+    gudangId    Int
+    jumlah      Decimal @db.Decimal(4, 0)
+    harga       Decimal @db.Decimal(10, 2)
+    keterangan  String
+    tanggal     DateTime
+    typeMutasi  String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }

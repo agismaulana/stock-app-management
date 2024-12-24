@@ -21,7 +21,10 @@
             <th>No</th>
             <th>Total</th>
             <th>Waktu Transaksi</th>
-            <th>Supplier</th>
+            <th>Gudang</th>
+            <th>Pengawas</th>
+            <th>Status</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +33,13 @@
             <td><%= index + 1 %></td>
             <td><%= transaksi.total %></td>
             <td><%= transaksi.tanggal %></td>
-            <td><%= transaksi.role.name %></td>
+            <td><%= transaksi.gudang.name %></td>
+            <td><%= transaksi.pengawas.name %></td>
+            <td><%= transaksi.status %></td>
+            <td>
+              <a href="/transaksi/<%= transaksi.id %>/edit" class="btn btn-primary btn-sm">Edit</a>
+              <a href="/transaksi/<%= transaksi.id %>/destroy" class="btn btn-danger btn-sm">Hapus</a>
+            </td>
           </tr>
           <% }); %>
         </tbody>
