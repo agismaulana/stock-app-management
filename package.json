@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "node-mocks-http": "^1.16.2",
     "prisma": "^6.1.0"
   }
 }
