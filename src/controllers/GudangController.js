@@ -13,18 +13,30 @@ const index = async (req, res) => {
 const create = async (req, res) => {
     return res.render('layouts/template', {
         title: 'Gudang',
-        page: '../gudang/create'
+        page: '../gudang/create',
+        messages: req.flash('gudangMessage')
     })
 }
 
 const store = async (req, res) => {
-    const { name, alamat, telepon } = req.body
+    const { name, alamat, telepon, isActive } = req.body
+
+    if (telepon == '') {
+        req.flash('gudangMessage', 'Gudang gagal ditambahkan')
+        return res.redirect('/gudangs/create')
+    }
+    
+    if (isNaN(telepon)) {
+        req.flash('gudangMessage', 'Nomor telepon diisi dengan numerik')
+        return res.redirect('/gudangs/create')
+    }
 
     await prisma.gudang.create({
         data: {
             name,
             alamat,
-            telepon
+            telepon,
+            isActive: isActive == '1' ? true : false
         }
     })
 
@@ -42,12 +54,23 @@ const edit = async (req, res) => {
     return res.render('layouts/template', {
         title: 'Gudang',
         page: '../gudang/edit',
-        gudang
+        gudang,
+        messages: req.flash('gudangMessage')
     })
 }
 
 const update = async (req, res) => {
-    const { name, alamat, telepon } = req.body
+    const { name, alamat, telepon, isActive } = req.body
+
+    if (telepon == '') {
+        req.flash('gudangMessage', 'Gudang gagal ditambahkan')
+        return res.redirect('/gudangs/create')
+    }
+    
+    if (isNaN(telepon)) {
+        req.flash('gudangMessage', 'Nomor telepon diisi dengan numerik')
+        return res.redirect('/gudangs/create')
+    }
 
     await prisma.gudang.update({
         where: {
@@ -56,7 +79,8 @@ const update = async (req, res) => {
         data: {
             name,
             alamat,
-            telepon
+            telepon,
+            isActive: isActive == '1' ? true : false
         }
     })
 

@@ -6,7 +6,8 @@ const index = async (req, res) => {
     return res.render('layouts/template', {
         title: 'Supplier',
         page: '../supplier/index',
-        suppliers
+        suppliers,
+        messages: req.flash('supplierMessage')
     })
 }
 
@@ -42,7 +43,7 @@ const store = async (req, res) => {
         }
     })
 
-    req.flash('success', 'Supplier berhasil ditambahkan')
+    req.flash('supplierMessage', 'Supplier berhasil ditambahkan')
     return res.redirect('/suppliers')
 }
 
@@ -91,7 +92,7 @@ const update = async (req, res) => {
         }
     })
 
-    req.flash('success', 'Supplier berhasil diupdate')
+    req.flash('supplierMessage', 'Supplier berhasil diupdate')
     return res.redirect('/suppliers')
 }
 
@@ -102,7 +103,7 @@ const destroy = async (req, res) => {
         }
     })
 
-    req.flash('success', 'Supplier berhasil dihapus')
+    req.flash('supplierMessage', 'Supplier berhasil dihapus')
     return res.redirect('/suppliers')
 }
 

@@ -6,6 +6,16 @@
   </ol>
 </nav>
 
+<div class="my-2">
+  <% if (messages && messages.length > 0) { %>
+  <div class="alert alert-success" role="alert">
+    <% messages.forEach(message => { %>
+    <div><%= message %></div>
+    <% }); %>
+  </div>
+  <% } %>
+</div>
+
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Tambah Gudang</h6>
@@ -23,6 +33,14 @@
       <div class="form-group">
         <label for="alamat">Alamat Lengkap</label>
         <textarea name="alamat" id="alamat" class="form-control" rows="3" placeholder="Masukkan alamat lengkap" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="isActive" class="form-label">Aktif</label>
+        <select name="isActive" id="isActive" class="form-control">
+          <option>-- Pilih Status --</option>
+          <option value="1">Aktif</option>
+          <option value="0">Tidak Aktif</option>
+        </select>
       </div>
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary btn-block">Simpan</button>

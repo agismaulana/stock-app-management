@@ -26,7 +26,6 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Photo</th>
             <th>Nama</th>
             <th>Harga</th>
             <th>Stok</th>
@@ -34,6 +33,7 @@
             <th>Deskripsi</th>
             <th>Kategori</th>
             <th>Supplier</th>
+            <th>Gudang</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -41,7 +41,6 @@
           <% barangs.forEach((barang, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
-            <td><img src="<%= barang.photo %>" alt="photo-barang" /></td>
             <td><%= barang.name %></td>
             <td><%= barang.harga %></td>
             <td><%= barang.stock %></td>
@@ -49,6 +48,7 @@
             <td><%= barang.deskripsi %></td>
             <td><%= barang.Kategori.name %></td>
             <td><%= barang.Supplier.name %></td>
+            <td><%= barang.Gudang?.name ?? '-' %></td>
             <td>
               <a href="/barangs/<%= barang.id %>/edit" class="btn btn-sm btn-info">Ubah</a>
               <a href="/barangs/<%= barang.id %>/destroy" class="btn btn-sm btn-danger">Hapus</a>

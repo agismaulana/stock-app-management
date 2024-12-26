@@ -15,6 +15,7 @@ const index = async (req, res) => {
     include: {
       Kategori: true,
       Supplier: true,
+      Gudang: true,
     },
   });
 
@@ -29,17 +30,30 @@ const index = async (req, res) => {
 const create = async (req, res) => {
   const kategories = await prisma.kategori.findMany();
   const suppliers = await prisma.supplier.findMany();
+  const gudangs = await prisma.gudang.findMany();
 
   return res.render('layouts/template', {
     title: 'Barang',
     page: '../barang/create',
     kategories,
     suppliers,
+    gudangs,
+    messages: req.flash('barangMessage'),
   });
 };
 
 const store = async (req, res) => {
-  const { name, harga, deskripsi, sale_price, kategoriId, supplierId } = req.body;
+  const { name, harga, deskripsi, sale_price, berat, tipe, banyak, gudangId, kategoriId, supplierId } = req.body;
+
+  if (name != RegExp(/^[a-zA-Z0-9]+$/)) {
+    req.flash('barangMessage', 'Nama barang tidak boleh menggunakan simbol');
+    return res.redirect('/barangs/create');
+  }
+
+  if (isNaN(banyak)) {
+    req.flash('barangMessage', 'data banyak harus menggunakan numerik');
+    return res.redirect('/barangs/create');
+  }
 
   await prisma.barang.create({
     data: {
@@ -49,6 +63,14 @@ const store = async (req, res) => {
       deskripsi,
       photo: '',
       stock: 0,
+      berat,
+      tipe,
+      banyak,
+      Gudang: {
+        connect: {
+          id: parseInt(gudangId),
+        },
+      },
       Kategori: {
         connect: {
           id: parseInt(kategoriId),
@@ -79,6 +101,7 @@ const edit = async (req, res) => {
 
   const kategories = await prisma.kategori.findMany();
   const suppliers = await prisma.supplier.findMany();
+  const gudangs = await prisma.gudang.findMany();
 
   return res.render('layouts/template', {
     title: 'Barang',
@@ -86,11 +109,23 @@ const edit = async (req, res) => {
     barang,
     kategories,
     suppliers,
+    gudangs,
+    messages: req.flash('barangMessage'),
   });
 };
 
 const update = async (req, res) => {
-  const { name, harga, deskripsi, sale_price, kategoriId, supplierId } = req.body;
+  const { name, harga, deskripsi, sale_price, berat, tipe, banyak, gudangId, kategoriId, supplierId } = req.body;
+
+  if (name != RegExp(/^[a-zA-Z0-9]+$/)) {
+    req.flash('barangMessage', 'Nama barang tidak boleh menggunakan simbol');
+    return res.redirect('/barangs/create');
+  }
+
+  if (isNaN(banyak)) {
+    req.flash('barangMessage', 'data banyak harus menggunakan numerik');
+    return res.redirect('/barangs/create');
+  }
 
   await prisma.barang.update({
     where: {
@@ -103,6 +138,14 @@ const update = async (req, res) => {
       deskripsi,
       photo: '',
       stock: 0,
+      berat,
+      tipe,
+      banyak,
+      Gudang: {
+        connect: {
+          id: parseInt(gudangId),
+        },
+      },
       Kategori: {
         connect: {
           id: parseInt(kategoriId),

@@ -6,6 +6,16 @@
     </ol>
   </nav>
   
+  <div class="my-2">
+    <% if (messages && messages.length > 0) { %>
+    <div class="alert alert-success" role="alert">
+      <% messages.forEach(message => { %>
+      <div><%= message %></div>
+      <% }); %>
+    </div>
+    <% } %>
+  </div>
+
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">Edit Barang</h6>
@@ -60,6 +70,18 @@
           />
         </div>
         <div class="form-group">
+          <label for="berat">Berat</label>
+          <input type="text" class="form-control" id="berat" name="berat" placeholder="Masukkan berat barang" value="<%= barang.berat %>"/>
+        </div>
+        <div class="form-group">
+          <label for="tipe">Tipe</label>
+          <input type="text" class="form-control" id="tipe" name="tipe" placeholder="Masukkan tipe barang" value="<%= barang.tipe %>"/>
+        </div>
+        <div class="form-group">
+          <label for="banyak">Banyak</label>
+          <input type="text" class="form-control" id="banyak" name="banyak" placeholder="Masukkan banyak barang" value="<%= barang.banyak %>"//>
+        </div>
+        <div class="form-group">
           <label for="kategoriId">Kategori</label>
           <select 
             name="kategoriId" 
@@ -70,6 +92,15 @@
             <option value="">-- Pilih Kategori --</option>
             <% kategories.forEach(({ id, name }) => { %>
             <option value="<%= id %>" <%= id == barang.kategoriId ? 'selected' : '' %>><%= name %></option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="gudangId">Gudang</label>
+          <select name="gudangId" id="gudangId" class="form-control" required>
+            <option value="">-- Pilih Gudang --</option>
+            <% gudangs.forEach(({ id, name }) => { %>
+            <option value="<%= id %>" <%= id == barang.gudangId ? 'selected' : '' %><%= name %></option>
             <% }); %>
           </select>
         </div>

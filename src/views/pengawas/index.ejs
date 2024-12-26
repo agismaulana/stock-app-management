@@ -29,6 +29,7 @@
             <th>Name</th>
             <th>Telepon</th>
             <th>Alamat</th>
+            <th>Gudang</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -39,6 +40,7 @@
             <td><%= pengawas.name %></td>
             <td><%= pengawas.telepon %></td>
             <td><%= pengawas.alamat %></td>
+            <td><%= pengawas.gudang?.name || '-' %></td>
             <td>
               <a href="/pengawas/<%= pengawas.id %>/edit" class="btn btn-sm btn-info">Edit</a>
               <a href="/pengawas/<%= pengawas.id %>/destroy" class="btn btn-sm btn-danger">Delete</a>
